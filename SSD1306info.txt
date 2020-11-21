@@ -1,0 +1,63 @@
+ ------------------
+|  0|0       0|128 |
+| 31|0      31|128 |
+ ------------------
+
+ Textsize 2 TwoLines
+ - Line1= x:0-128, y:0-15
+ - Space= x:0-128, y:16-16
+ - Line2= x:0-128, y:17-31
+
+void printTwoLineScheme()
+{  
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+
+  display.setCursor(4, 0);
+  display.print("Line one");
+  display.drawFastHLine(0, 15, 128, WHITE);
+  display.drawFastVLine(0, 0, 16, WHITE);
+
+  
+  display.setCursor(4, 17);
+  display.print("Line two");
+  display.drawFastHLine(0, 31, 128, WHITE);
+  display.drawFastVLine(0, 17, 15, WHITE);
+
+  display.display();
+}
+
+Scrolling 
+1 = x:0-128, y:0-7
+2 = x:0-128, y:8-15
+3 = x:0-128, y:16-23
+4 = x:0-128, y:24-31
+
+4030ms Full scroll from 0-127 
+ca.32 ms per pixel
+
+void scrollanimation()
+{  
+  display.setTextSize(2);
+  display.setTextColor(WHITE);
+  display.drawFastVLine(0, 0, 16, WHITE);
+
+  display.drawFastVLine(0, 17, 15, WHITE); //0
+  display.drawFastVLine(16, 17, 15, WHITE); //500
+  display.drawFastVLine(32, 17, 15, WHITE); //1000
+  display.drawFastVLine(47, 17, 15, WHITE); //1500
+  display.drawFastVLine(63, 17, 15, WHITE); //2000
+  display.drawFastVLine(79, 17, 15, WHITE); //2500
+  display.drawFastVLine(95, 17, 15, WHITE); //3000
+  display.drawFastVLine(110, 17, 15, WHITE); //3500
+  display.drawFastVLine(127, 17, 15, WHITE); //4030
+  display.display();
+
+  display.startscrollright(0, 1);
+  delay(3500);
+  display.stopscroll();
+  
+  display.startscrollleft(0, 1);
+  delay(3500);
+  display.stopscroll();
+}
